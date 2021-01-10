@@ -1,9 +1,7 @@
 ul {
     list-style-type: none;
 }
-#withBg{
-    background-image: url(robot2.jpg);
-    background-repeat: no-repeat;
-    background-size: cover;
-    
+a:link{
+    color:black;
 }
+nav{position:sticky;}
