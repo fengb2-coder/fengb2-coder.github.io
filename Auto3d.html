@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <!-- auto -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!--bootstap bundle-->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+    <!--title-->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW"
+        crossorigin="anonymous"></script>
+    <title>Automated 3D Modeling</title>
+</head>
+
+<body>
+    <div class="bg-secondary">
+    <nav class="navbar navbar-expand-lg navbar-light container-lg  ">
+        <a class="navbar-brand" href="index.html">
+            <p class="navbar-name">Back to Brown's Homepage</p>
+        </a>
+    </nav>
+    </div>  
+    <br>
+    <div class="row">
+        <div class="col-lg-3 col-md-2 col-sm-2">
+        </div>
+
+        <div class="col-lg-6 col-md-8 col-sm-8">
+            <h1>Automated 3D Modeling</h1>
+            <p>key tools: ROS, MoveIt!, Slam_toolbox, Point Cloud Library</p>
+            <a href="https://urldefense.proofpoint.com/v2/url?u=https-3A__github.com_fengb2-2Dcoder_Automated-2D3D-2DModeling&d=DwICaQ&c=slrrB7dE8n7gBJbeO0g-IQ&r=VEmrDFSslMJjhy92SU7QYw&m=GG-Xjh4ZFiDq2yPvzoXRqMkq6ROQWz3Gytj1oyhnmZg&s=ltlT1KfntWLC1hEIQM51p-zp_f4f3GJI1PRz9hexiko&e="
+                class="btn btn-secondary btn-lg active mx-auto" role="button" aria-pressed="true">Github Link</a>
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/showdown@1.9.0/dist/showdown.min.js"></script>
+    <br>
+    <br>
+    <div class="container-lg">
+        <h1>Project goal:</h1>
+        <p>The goal of our project is to create a 3D reconstruction model of an arbitrarily object. We aimed to
+            design an automated 3D reconstruction system to make people without any CAD modeling experience
+            can construct 3D detailed model from objects.</p>
+        <p>Because of Covid, we have limited time spent in lab. We have our refined version of point clouds
+            finished at home. Thanks for Tianyu Li, my teammate, did this.</p>
+        <h2>Demo in the lab:</h2>
+        <p align="center">
+            <iframe src="https://drive.google.com/file/d/1Q2FO-1xUgAzdScVqBqCJTylDbjCMh5rL/preview" width="640"
+                height="480" class="center"></iframe>
+        </p>
+
+        <h2 class="text-center">Refined demo at home(done by Tianyu Li)</h2>
+        <p align="center">
+            <iframe src="https://drive.google.com/file/d/1Ju85MJpGs4Qd3p4OVBtpFYB5iKh3aYQW/preview" width="640"
+                height="480"></iframe>
+        </p>
+
+        <h3>Robots used to complete the goal:</h3>
+        <ul>
+            <li>Rethink Sawyer Arm</li>
+            <li>Intel Realsense camera</li>
+            <li>Turtlebot3(burger)</li>
+        </ul>
+        <h3>General process:</h3>
+        <p>We mounted realsense camera at the end effector of the sawyer. This realsense camera is used to record
+            the point cloud data for five sides of the object(front, left, right, back and up). The sawyer arm is to
+            control the position of the camera, so that it can directly face the target surface. The turtlebot3 works as
+            a turntable to make object spin. Generally, the sawyer arm needs to move to a certain position (stored
+            waypoint), then turtlebot3 turn 90 degrees each time and camera store point cloud data each time. After
+            finishing storing the four sides, sawyer will go to the second stored waypoints to capture the top view
+            of the object.</p>
+        <h3>Skills need:</h3>
+        <ul>
+            <li>Robot Operating System</li>
+            <li>Sawyer and turtlebot3(burger) user connection</li>
+            <li>Slam\_toolbox</li>
+            <li>Move\_base</li>
+            <li>Moveit</li>
+            <li>Opencv</li>
+            <li>Point Cloud Library (PCL)</li>
+        </ul>
+        <h2>We divide the project into three sections, corresponding with three ROS packages:</h2>
+        <h4>arm_motion:</h4>
+        <ul>
+            <li>This package responsible for the control of motion between sawyer robot and turtlebot3</li>
+            <li>MoveIt is used to manipulate the motion of sawyer arm</li>
+            <li>Slam\_toolbox and move\_base are used to turn turtlebot3</li>
+        </ul>
+        <h4>camera_motion:</h4>
+        <ul>
+            <li>Aligning the camera</li>
+            <li>Processing the raw depth pixels by OpenCV</li>
+        </ul>
+        <h4>Camera_reconstruct:</h4>
+        <ul>
+            <li>Point Cloud Library is used to process points cloud data stored in realsense camera </li>
+            <li>Use C++ to post-process the data including transformation, alignment and cropping </li>
+        </ul>
+        <h2>My major work: </h2>
+        <ul>
+            <li>responsible for sawyer and turtlebot motion part </li>
+            <li>come up ideas for scanning method and possible waypoints of scanning positions </li>
+            <li>create arm_motion package and use MoveIt to generate an efficient trajectory for sawyer movement </li>
+            <li>make turtlebot3 and sawyer can cooperate with each other and be an automate moving system</li>
+            <li>store the point cloud data using realsense camera</li>
+        </ul>
+        <h2>Result</h2>
+        <p align="center">
+            <img src="pd.gif" alt="pd">
+        </p>
+    </div>
+</body>
+
+</html>
