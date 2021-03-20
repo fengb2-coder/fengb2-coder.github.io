@@ -1,0 +1,135 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <!-- auto -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="page.css">
+    <!--bootstap bundle-->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+    <!--title-->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW"
+        crossorigin="anonymous"></script>
+    <title>Autonomous driving with deep Q learning in Carla Urban Simulator</title>
+</head>
+
+<body>
+    <div class="bg-secondary">
+    <nav class="navbar navbar-expand-lg navbar-light container-lg  ">
+        <a class="navbar-brand" href="index.html">
+            <p class="navbar-name">Back to Bowen's Homepage</p>
+        </a>
+    </nav>
+    </div>  
+    
+    <div class="bg-light">
+    
+    <div class="container-lg">
+        <h1>    <title>Autonomous driving with deep Q learning in Carla Urban Simulator</title>
+</h1>
+            <p>Key tools: Carla simulator 0.9.6, Tensorflow, Python, Keras</p>
+            <a href="https://github.com/fengb2-coder/dqn_carla"
+                class="btn btn-secondary btn-lg active mx-auto" role="button" aria-pressed="true">Github Link</a>
+        <br>
+        <br>
+        <br>
+        <h1>Project goal:</h1>
+        <p>The goal of this independent research is to create a deep Q learning model for a vehicle in Carla Urban Simulator. 
+        The target pipeline is to make spawned vehicle learn the environment and drive itself without collide under no traffic or line following rules. 
+        To save the randomness time, guided waypoints are generated near the spawned location and add them to reward function. </p>
+        <h2>My major work: </h2>
+        <ul>
+            <li> learn and construct agent (spawn the vehicle, camera, collision sensor)in Carla  </li>
+            <li>construct reward policies and overall reinforcement learning algorithms</li>
+            <li>construct CNN deep neural network  for this complex environment </li>
+            <li>come up with waypoints ideas to save random action time</li>
+            <li>construct the waypoints near the vehicle spawned location</li>
+        </ul>
+        <h2>Demo in the lab:</h2>
+        <p>The video showed below is the agent performance in simulator using policy trained after certain episodes.
+        If there is a collision, the episode will terminate. If there is no collision at all, episode will terminate after set episode period. The green dots in the video are waypoints generated to guide the vehicle to save random action time. 
+        Since I have no traffic and line following policies, I generated the waypoints on both sides of road.  </p>
+         <h2 class="text-center">Policy trained with 100 episodes (the best one so far)</h2>
+         
+                <p align="center">
+            <iframe src="https://drive.google.com/file/d/1Jpi3hbYf_IBco38GES1MWgzOoDrIOz4Z/preview" width="640"
+                height="480" class="center"></iframe>
+        </p>
+
+        <h2 class="text-center">Policy trained with 50 episodes:</h2>
+        <p align="center">
+            <iframe src="https://drive.google.com/file/d/1xwlfrpb8L6pTiOZYmi0ath2COcivO_ow/preview" width="640"
+                height="480"></iframe>
+        </p>
+
+        <h2 class="text-center">Policy trained with 20 episodes:</h2>
+        <p align="center">
+            <iframe src="https://drive.google.com/file/d/1MTWG8dzR07LIjbdwlpKNxc68mv7wO0xc/preview" width="640"
+                height="480"></iframe>
+        </p>
+        <h2 class="text-center">Plots generated from Tensorboard from 100 episodes. (corresponds to the best performance):</h2>
+        <table align="center">
+         <td width=50% border: 1px solid black;>
+               
+                    <img class="align-self-center mr-3" src="plot1.png" alt="" >
+                </td>
+            <td width=50%>
+                    <img class="align-self-center mr-3" src="plot2.png" alt="" >
+                </td>
+                </tr>
+        </table>
+        <h3>Deep Q learning algorithms:</h3>
+        <h4>Three actions:</h4>
+        <ul>
+            <li>Action1: full throttle left turns </li>
+            <li>Action2: full throttle go straight </li>
+            <li>Action3: full throttle turn right</li>
+        </ul>
+        <h4>Rewards:</h4>
+        <ul>
+            <li>Reward policy1: give huge penalty to collision (around -200 to 500) </li>
+            <li>Reward policy2: give reward for driving to the watpoints location (around 50 to 100) </li>
+            <li>Reward policy3: give reward for non-collision case (around 20)</li>
+            <li>Reward policy4: give penalty for the speed below 40 mph (around -5)</li>
+        </ul>
+        <h3>Data:</h3>
+        <h4>Collision sensor:</h4>
+        <p>I add the collision sensor and camera at the front of the car. 
+        The collision sensor will detect the collision and send the message. 
+        I have a list called collision_list and is initialized to be an empty list. 
+        During the process, I will decide if there is a collision based on the collision list is empty or not. 
+</p>
+        <h4>Camera:</h4>
+        <ul>
+            <li>Camera spawned in front of the car will provide RGB data input into the DQN network.  </li>
+        </ul>
+        
+        <div align="center">
+        <h2> CNN flowchart: </h2>
+            <img src="DQN_flowchart.png" alt="">
+        <h2> Reinforcement learning flowchart: </h2>
+            <img src="RL_flowchart.png" alt="">
+        <h2> Xception base model used in CNN: </h2>
+            <img src="Xception_base_model.png" alt="">
+        </div>
+        
+        
+        <h2>Result</h2>
+        <p align="center">
+            <img src="100.gif" alt="pd">
+        </p>
+    
+        <h2>Future work:</h2>
+         <ul>
+            <li>Add pedestrians and driving vehicles (NPC) to the map </li>
+            <li>Choose a field with one straight road , a crossing and add line following rules</li>
+            <li>Reward parameter need to be tuned better (such as if collide, reward = tuned reward parameter) </li>
+        </ul>
+    </div>
+    </div>
+</body>
+
+</html>
