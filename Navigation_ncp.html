@@ -1,0 +1,145 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <!-- auto -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="page.css">
+    <!--bootstap bundle-->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+    <!--title-->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW"
+        crossorigin="anonymous"></script>
+    <title>Autonomous driving with deep Q learning in Carla Urban Simulator</title>
+</head>
+
+<body>
+    <div class="bg-secondary">
+    <nav class="navbar navbar-expand-lg navbar-light container-lg  ">
+        <a class="navbar-brand" href="index.html">
+            <p class="navbar-name">Back to Bowen's Homepage</p>
+        </a>
+    </nav>
+    </div>  
+    
+    <div class="bg-light">
+    
+    <div class="container-lg">
+        <h1>    <title>Autonomous driving with deep Q learning in Carla Urban Simulator</title>
+</h1>
+            <p>Key tools: Clearpath Jackal, Inter@Realsense Depth Camera D435i, Velodyne 3D Lidar, Tensorflow, OpenCV, cv_bridge, ROS</p>
+            <a href="https://github.com/fengb2-coder/ncp"
+                class="btn btn-secondary btn-lg active mx-auto" role="button" aria-pressed="true">Github Link</a>
+        <br>
+        <br>
+        <br>
+        <h1>Abstract:</h1>
+        <p> Deep supervised modes work well when we have
+            sufficient data to train, but one of the hardest things is to
+            do it efficiently and hard to understand what each stage does
+            in the learning. We always have deep neural network, high
+            computation cost, and requirement of large amount of data when
+            the environment is complicated. Neuron Circuit policy gives us a
+            more intelligent way to use less data and fewer layers during the
+            learning while finishing the task with more robustness. We design
+            the experiment to ask Jackal robot doing autonomous navigation
+            tasks to demonstrate using neuron circuit policy with fewer
+            control neurons can still result in a satisfactory performance. </p>
+        <h1>Project goal:</h1>
+        <p> We separate our tasks into two phases. Phase 1 aims for
+            obstacle avoidance, and phase 2 aims for line following task.
+            Both phases share the same model design that output a velocity
+            to control the robot. We design our learning algorithm by
+            using convolutional neural network(CNN) modules and neural
+            circuit policy (NCP). Our system is separated into two parts:
+            data processing and control.</p>
+        <h2>My major work: </h2>
+        <ul>
+            <li>Implement CNN and Neural Circuit Policy using tensorflow</li>
+            <li>Take data for obstacle avoidance and line following task using ROS_Slam_tool_box and teleop separately</li>
+            <li>Use trained model on Jackal robot with ROS and test it in reality</li>
+        </ul>
+        <h2>Demo:</h2>
+        <p>THe videos below are Jackal robot's performance on Object avoidance and line following tasks in real environment.</p>
+        <h2 class="text-center">Obstacle avoidance with no destination specified</h2>
+         
+        <p align="center">
+            <iframe src="https://drive.google.com/file/d/14eI-KddXkKIu8Pkand7IL7Fn7dewVTxX/preview" width="640"
+                height="480" class="center"></iframe>
+        </p>
+
+        <h2 class="text-center">Line following with specified solid and dotted lines on the ground</h2>
+        <p align="center">
+            <iframe src="https://drive.google.com/file/d/1Vx_q-xAiokX-0_mQdEss-U-rvd7WsZWe/preview" width="640"
+                height="480"></iframe>
+        </p>
+
+        <h2 class="text-center">MOdel Design:</h2>
+        <table align="center">
+         <td width=50% border: 1px solid black;>
+               
+                    <img class="align-self-center mr-3" src="ncp_model.png" alt="" >
+                </td>
+            <td width=50%>
+                    <p class="text-center">For obstacle avoidance task, we trained linear
+                        and angular velocities separately paired with the same scan
+                        message data. One training model will give us predicated
+                        angular velocity using scan message and collected angular
+                        velocity as training inputs. Another training model will give
+                        us predicated linear velocity using scan message and collected
+                        linear velocity as training inputs. After having those two
+                        trained models, we constructed ROS node (load model) to
+                        publish predicated linear and angular velocity into cmd vel
+                        topic, which controls the forward speed and steering speed of
+                        Jackal.Plots below show the linear and angular velocity model result trained using laser
+                        scan messages. Both models are trained using /front/scan and
+                        /cmd vel messages recorded in rosbags.</p>
+                    <p class="text-center">Training results</p>
+                    <img class="align-self-center mr-3" src="Part1_training_result_linear.png" alt="" >
+                    <img class="align-self-center mr-3" src="Part1_training_result_angular.png" alt="" >
+                    <p class="text-center">Testing results</p>
+                    <img class="align-self-center mr-3" src="Part2_testing_result_linear.png" alt="" >
+                    <img class="align-self-center mr-3" src="Part2_testing_result_angular.png" alt="" >
+                </td>
+                <td width=50%>
+                    <p class="text-center">For Line following task, we use blue duct tape to construct an L-shaped road. Our
+                        goal is to demonstrate our trained model can follow the line
+                        from the start to the end of the road. We first manually
+                        run Jackal through the road using keyboard control. After
+                        collecting five rounds of data, we input collected RGB data and
+                        angular velocity into our training model and output predicated
+                        angular velocity. We did not collect linear velocity since we stabilize our linear velocity when manually running the Jackal.
+                        When we test our model, we use the same linear velocity. We
+                        constructed ROS nodes to publish predicated angular velocity
+                        on cmd vel topic. Pictures below show the training result of the line following model.</p>
+                    <p class="text-center">Input image example</p>
+                    <img class="align-self-center mr-3" src="Part2_images.png" alt="" >
+                    <p class="text-center">Training result</p>
+                    <img class="align-self-center mr-3" src="Part2_losses.png" alt="" >
+                   
+                </td>
+                <!-- </tr> -->
+        </table>
+        
+        <!-- <div align="center">
+        <h2> CNN flowchart: </h2>
+            <img src="DQN_flowchart.png" alt="">
+        <h2> Reinforcement learning flowchart: </h2>
+            <img src="RL_flowchart.png" alt="">
+        <h2> Xception base model used in CNN: </h2>
+            <img src="Xception_base_model.png" alt="">
+        </div> -->
+        <h2>Future work:</h2>
+         <ul>
+            <li>Combine the line following and object avoidance into one task</li>
+            <li>Add more moving obstacle in the training and testing environment to test the robostness of the avoidance</li>
+            <li>Add a destination and path planning into the model</li>
+        </ul>
+    </div>
+    </div>
+</body>
+
+</html>
