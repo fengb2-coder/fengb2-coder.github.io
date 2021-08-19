@@ -83,8 +83,7 @@
         </p>
 
         <h2>Training and testing results:</h2>
-        <!-- <table align="center">
-            <td width=50%> -->
+        <h2>Obstacle avoidance:</h2>
                     <p class="text-center">For obstacle avoidance task, we trained linear
                         and angular velocities separately paired with the same scan
                         message data. One training model will give us predicated
@@ -99,12 +98,12 @@
                         scan messages. Both models are trained using /front/scan and
                         /cmd vel messages recorded in rosbags.</p>
                     <h2 class="text-center">Training Results</h2>
-                    <img class="align-self-center mr-3" src="Part1_training_result_linear.png" alt="" >
-                    <img class="align-self-center mr-3" src="Part1_training_result_angular.png" alt="" >
+                    <img class="center" src="Part1_training_result_linear.png" alt="" >
+                    <img class="center" src="Part1_training_result_angular.png" alt="" >
                     <h2 class="text-center">Testing Results</h2>
-                    <img class="align-self-center mr-3" src="Part1_testing_result_linear.png" alt="" >
-                    <img class="align-self-center mr-3" src="Part1_testing_result_angular.png" alt="" >
-               
+                    <img class="center" src="Part1_testing_result_linear.png" alt="" >
+                    <img class="center" src="Part1_testing_result_angular.png" alt="" >
+        <h2>Line Following:</h2>
                     <p class="text-center">For Line following task, we use blue duct tape to construct an L-shaped road. Our
                         goal is to demonstrate our trained model can follow the line
                         from the start to the end of the road. We first manually
@@ -115,14 +114,11 @@
                         When we test our model, we use the same linear velocity. We
                         constructed ROS nodes to publish predicated angular velocity
                         on cmd vel topic. Pictures below show the training result of the line following model.</p>
-                    <p class="text-center">Input image example</p>
-                    <img class="align-self-center mr-3" src="Part2_images.png" alt="" >
-                    <p class="text-center">Training result</p>
-                    <img class="align-self-center mr-3" src="Part2_losses.png" alt="" >
+                    <h2 class="text-center">Input image example</h2>
+                    <img class="center" src="Part2_images.png" alt="" >
+                    <h2 class="text-center">Training Results</h2>
+                    <img class="center" src="Part2_losses.png" alt="" >
                    
-                <!-- </td>
-        </table> -->
-        
        
         <h2>Future work:</h2>
          <ul>
