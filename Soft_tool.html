@@ -1,0 +1,129 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <!-- auto -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="page.css">
+    <!--bootstap bundle-->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+    <!--title-->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW"
+        crossorigin="anonymous"></script>
+    <title>Use robot to bend flexible wire to specific shape as tools with optimal contorl and active learning</title>
+</head>
+
+<body>
+    <div class="bg-secondary">
+    <nav class="navbar navbar-expand-lg navbar-light container-lg  ">
+        <a class="navbar-brand" href="index.html">
+            <p class="navbar-name">Back to Bowen's Homepage</p>
+        </a>
+    </nav>
+    </div>  
+    
+    <div class="bg-light">
+    
+    <div class="container-lg">
+        <h1>    <title>Use robot to bend flexible wire to specific shape as tools with optimal contorl and active learning</title>
+</h1>
+            <p>Key tools: Widow200 robot arms, ROS, Scipy, Pytorch, OpenAI gym, RLlib, C++</p>
+            <a href="https://github.com/fengb2-coder/ncp"
+                class="btn btn-secondary btn-lg active mx-auto" role="button" aria-pressed="true">Github Link</a>
+            <a href="https://drive.google.com/drive/folders/1ExmcJzur6QPZFylPTDK9MpZhT4G8jHyG?usp=sharing"
+                class="btn btn-secondary btn-lg active mx-auto" role="button" aria-pressed="true">Google drive Link</a>
+        <br>
+        <br>
+        <br>
+        <h1>Abstract:</h1>
+        <p> Our goal in general is to construct a systematic method for using a soft, 
+            bendable rod as a tool. Consider a soft wire with fixed length held by two robot grippers, Related work done by Timothy Bretl's lab proved that any curve traced by this wire when in static equilibrium is a local solution to a geometric optimal control problem. 
+            Based on this framework, the shape of a flexible wire can be predicted given the specification of the two endpoints of the wire. </p>
+        <h1>Project goal:</h1>
+        <p> This is a long term research in Professor Todd Murphey's lab. My goal is to use this optimial control framework to bend the shape close to the desired initial configuration. 
+            Then construct the experimental pipline, being able to use two synchronized robot arms to move simultaneously,
+            asking robot arms to bend wire into simulated shapes and doing manipulation tasks,
+            such as pushing the ball forward and pulling the ball close. I also spent my summer in Professor Todd's lab as a research assistant. During summertime, I aimed to reduce the configuration space (hundreds to thousands)
+            to only six dimension A space using machine learning. Timmothy Bretl derived this A space representation from Li groups. It aims to have A space first and then use it to solve the whole wire configuration.
+            I reversed the process. I used Long-short term memeory to learn configuration to A space directly. Additionally, I constructed reinforcement learning p[ipline (PPO + Transformer) to make robot learn policy of complicated shapes beding.
+            THe whole project is still in development with a focus on active learning using koopman operator in next step. I will use koopman operator to make robot learn complex manipulation through limited data.
+        </p>
+        
+        <h1>My major work: </h1>
+        <ul>
+            <li>Use optimal control (nonconvex in global, convex in local)to bend wire into desired shapes into desired shapes (local solution) </li>
+            <li>Construct experimental pipline to be able to do experiment with two robot arms using robot operating system in C++</li>
+            <li>Use Long-short memory to train model that mapping wire configuration to lower dimension space</li>
+            <li>Construct reinforcement learning pipline with Pytorch, OPenAI Gym and Rllib to make robot learn complex shape bending as a direct method</li>
+        </ul>
+        <h1>Demo:</h1>
+        <p>The videos below show robot arms bend the wire and do manipulation tasks. Wire configuration has been pre-calculated by optimization. Boundary configurations are used as waypoints (arm end-effector pose) to each manipulation.</p>
+        <h2 class="text-center">Aims to bend flexible wire into specific parabola and push the red ball forward </h2>
+         
+        <p align="center">
+            <iframe src="https://drive.google.com/file/d/1NTD039RRYNEyNq-ITZ9bfow-T0aaa7jo/preview" width="640"
+                height="480" class="center"></iframe>
+        </p>
+
+        <h2 class="text-center">Aims to bend flexible wire into specific parabola and push the box forward </h2>
+         
+        <p align="center">
+            <iframe src="https://drive.google.com/file/d/1JD-zinEI3ox5ISQ6Ao-q0HZFrG4dhIXP/preview" width="640"
+                height="480" class="center"></iframe>
+        </p>
+
+        <h2 class="text-center">Aims to bend flexible wire into specific parabola and drag the red ball close</h2>
+        <p align="center">
+            <iframe src="https://drive.google.com/file/d/1rg-mwlzUQ1MRGkqw96LpV_AS62uGzEve/preview" width="640"
+                height="480"></iframe>
+        </p>
+
+        <h1>Shape optimization results</h1>
+        <h2>Obstacle avoidance:</h2>
+                    <p class="text-center">
+                        The results I show is in 2d version. I tested my results using different parabola shape in height. 
+                        As parabola is getting flat, we should see optimized configuration will be similar or almost the same as the desired
+                        since less optimization or control energy needed to make the wire's elastic energy small. (Flat wire will be an ground truth minimized elastic energy in global)
+                        As desired parabola is getting taller, we should see the optimized solution has bigger difference than the desired shape, since more contorl effort needed to minimize the elastic energy along the wire. 
+                    </p>
+                    <h2 class="text-center">Results and comparasion (Red is the desired and blue represents the optimized configuration)</h2>
+                    <td width=50%>
+                    <img class="center" src="nearly_flat.png" alt="" >
+                    </td>
+                    <img class="center" src="higher1.png" alt="" >
+                    <h2 class="text-center">Testing Results</h2>
+                    <img class="center" src="higher2.png" alt="" >
+                    <img class="center" src="higher3.png" alt="" >
+
+        <h1>Condiguration dimension reduce training results from Long-short term memory</h1>
+        <h2>Obstacle avoidance:</h2>
+                    <p class="text-center">
+                        I construct the neural network using a long short-term memory (LSTM) network architecture for mapping directly from $(q,u)$ to $\mathcal{A}$ space. 
+                        I collected data with random a = (a_1,a_2,a_3,a_4,a_5,a_6) between 0 and 1 and obtained the corresponding wire configuration by solving differential Equations system. 
+                        I separate the whole unit length into $100$ steps. Every step we obtained 16 data points to represent the configuration (flattened 4x4 transformation matrix).
+                        Overall, $16,000$ data points were collected. The input size for our LSTM + Linear model in each step is 16, and the output are the six figures in A domain.
+                        I used batch normalization between layers to avoid the gradient explosion and vanish.
+                        I trained this network with a batch size of $1000$ data points and a decreasing learning rate starting at $0.02$ for a total of $1000$ epochs.
+                        Finally, I obtained model performance with test error below $0.01$. 
+                        This test error was calculated using Mean Squared Error (MSE) and was evaluated on data that had not been previously seen by the learning agent.
+                        The result can be found in the following plot. This MSE was calculated between actual A values and the predicted A values.  
+                    </p>
+                    <h2 class="text-center">Training result</h2>
+                    <td width=50%>
+                    <img class="center" src="ch4_test_loss_predication.png" alt="" >
+                    </td>
+        
+        <h1>Future work:</h1>
+         <ul>
+            <li>Implement koopman operator for robot learning on how to manipulate object with bended shapes</li>
+            <li>Use teleop method to manipulate the arm with the object. (taking training data) </li>
+            <li>Do actual experiment with learned policy or model</li>
+        </ul>
+    </div>
+    </div>
+</body>
+
+</html>
