@@ -33,6 +33,8 @@
             <p>Key tools: Widow200 robot arms, ROS, Scipy, Pytorch, OpenAI gym, RLlib, C++</p>
             <a href="https://github.com/anapervan/Flexible-Tool.git"
                 class="btn btn-secondary btn-lg active mx-auto" role="button" aria-pressed="true">Github Link</a>
+            <a href="https://drive.google.com/drive/folders/1e-FY-xcyvI1-FlZVnHGcXJL616juLXvi?usp=sharing"
+                class="btn btn-secondary btn-lg active mx-auto" role="button" aria-pressed="true">Google drive Link</a>
         <br>
         <br>
         <br>
@@ -47,7 +49,8 @@
             such as pushing the ball forward and pulling the ball close. I also spent my summer in Professor Todd's lab as a research assistant. During summertime, I aimed to reduce the configuration space (hundreds to thousands)
             to only six dimension A space using machine learning. Timmothy Bretl derived this A space representation from Li groups. It aims to have A space first and then use it to solve the whole wire configuration.
             I reversed the process. I used Long-short term memeory (LSTM) to learn configuration to A space directly. Additionally, I constructed reinforcement learning p[ipline (PPO + Transformer) to make robot learn policy of complicated shapes beding.
-            THe whole project is still in development with a focus on active learning using koopman operator in next step. I will use koopman operator to make robot learn complex manipulation through limited data.
+            Detailed description about this summer research can be found in the report under google drive link.
+            The whole project is still in development with a focus on active learning using koopman operator in next step. I will use koopman operator to make robot learn complex manipulation through limited data.
         </p>
         
         <h1>My major work: </h1>
@@ -98,13 +101,13 @@
 
         <h1>Condiguration dimension reduce training results from LSTM</h1>
                     <p class="text-center">
-                        I construct the neural network using a long short-term memory (LSTM) network architecture for mapping directly from $(q,u)$ to $\mathcal{A}$ space. 
+                        I construct the neural network using a long short-term memory (LSTM) network architecture for mapping directly from wire configuration to A space. 
                         I collected data with random a = (a_1,a_2,a_3,a_4,a_5,a_6) between 0 and 1 and obtained the corresponding wire configuration by solving differential Equations system. 
-                        I separate the whole unit length into $100$ steps. Every step we obtained 16 data points to represent the configuration (flattened 4x4 transformation matrix).
+                        I separate the whole unit length into 100 steps. Every step we obtained 16 data points to represent the configuration (flattened 4x4 transformation matrix).
                         Overall, $16,000$ data points were collected. The input size for our LSTM + Linear model in each step is 16, and the output are the six figures in A domain.
                         I used batch normalization between layers to avoid the gradient explosion and vanish.
-                        I trained this network with a batch size of $1000$ data points and a decreasing learning rate starting at $0.02$ for a total of $1000$ epochs.
-                        Finally, I obtained model performance with test error below $0.01$. 
+                        I trained this network with a batch size of 1000 data points and a decreasing learning rate starting at 0.02 for a total of 1000 epochs.
+                        Finally, I obtained model performance with test error below 0.01. 
                         This test error was calculated using Mean Squared Error (MSE) and was evaluated on data that had not been previously seen by the learning agent.
                         The result can be found in the following plot. This MSE was calculated between actual A values and the predicted A values.  
                     </p>
