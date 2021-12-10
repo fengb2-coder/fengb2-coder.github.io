@@ -13,7 +13,7 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW"
         crossorigin="anonymous"></script>
-    <title>Use robot to bend flexible wire to specific shape as tools with optimal contorl and active learning</title>
+    <title>Use robot to bend flexible wire to specific shape as tools with optimal control and active learning</title>
 </head>
 
 <body>
@@ -28,13 +28,11 @@
     <div class="bg-light">
     
     <div class="container-lg">
-        <h1>    <title>Use robot to bend flexible wire to specific shape as tools with optimal contorl and active learning</title>
+        <h1>    <title>Use robot to bend flexible wire to specific shape as tools with optimal control and active learning</title>
 </h1>
             <p>Key tools: Widow200 robot arms, ROS, Scipy, Pytorch, OpenAI gym, RLlib, C++</p>
-            <a href="https://github.com/fengb2-coder/ncp"
+            <a href="https://github.com/anapervan/Flexible-Tool.git"
                 class="btn btn-secondary btn-lg active mx-auto" role="button" aria-pressed="true">Github Link</a>
-            <a href="https://drive.google.com/drive/folders/1ExmcJzur6QPZFylPTDK9MpZhT4G8jHyG?usp=sharing"
-                class="btn btn-secondary btn-lg active mx-auto" role="button" aria-pressed="true">Google drive Link</a>
         <br>
         <br>
         <br>
@@ -48,7 +46,7 @@
             asking robot arms to bend wire into simulated shapes and doing manipulation tasks,
             such as pushing the ball forward and pulling the ball close. I also spent my summer in Professor Todd's lab as a research assistant. During summertime, I aimed to reduce the configuration space (hundreds to thousands)
             to only six dimension A space using machine learning. Timmothy Bretl derived this A space representation from Li groups. It aims to have A space first and then use it to solve the whole wire configuration.
-            I reversed the process. I used Long-short term memeory to learn configuration to A space directly. Additionally, I constructed reinforcement learning p[ipline (PPO + Transformer) to make robot learn policy of complicated shapes beding.
+            I reversed the process. I used Long-short term memeory (LSTM) to learn configuration to A space directly. Additionally, I constructed reinforcement learning p[ipline (PPO + Transformer) to make robot learn policy of complicated shapes beding.
             THe whole project is still in development with a focus on active learning using koopman operator in next step. I will use koopman operator to make robot learn complex manipulation through limited data.
         </p>
         
@@ -56,7 +54,7 @@
         <ul>
             <li>Use optimal control (nonconvex in global, convex in local)to bend wire into desired shapes into desired shapes (local solution) </li>
             <li>Construct experimental pipline to be able to do experiment with two robot arms using robot operating system in C++</li>
-            <li>Use Long-short memory to train model that mapping wire configuration to lower dimension space</li>
+            <li>Use LSTM to train model that mapping wire configuration to lower dimension space</li>
             <li>Construct reinforcement learning pipline with Pytorch, OPenAI Gym and Rllib to make robot learn complex shape bending as a direct method</li>
         </ul>
         <h1>Demo:</h1>
@@ -98,8 +96,7 @@
                     <img class="center" src="higher2.png" alt="" >
                     <img class="center" src="higher3.png" alt="" >
 
-        <h1>Condiguration dimension reduce training results from Long-short term memory</h1>
-        <h2>Obstacle avoidance:</h2>
+        <h1>Condiguration dimension reduce training results from LSTM</h1>
                     <p class="text-center">
                         I construct the neural network using a long short-term memory (LSTM) network architecture for mapping directly from $(q,u)$ to $\mathcal{A}$ space. 
                         I collected data with random a = (a_1,a_2,a_3,a_4,a_5,a_6) between 0 and 1 and obtained the corresponding wire configuration by solving differential Equations system. 
@@ -113,7 +110,7 @@
                     </p>
                     <h2 class="text-center">Training result</h2>
                     <td width=50%>
-                    <img class="center" src="ch4_test_loss_predication.png" alt="" >
+                    <img class="center" src="ch4_test_loss_prediction.png" alt="" >
                     </td>
         
         <h1>Future work:</h1>
