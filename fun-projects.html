@@ -32,66 +32,70 @@
   </nav>
 
   <main id="main" class="container">
-    <div class="section">
+    <div>
       <a class="back-link" href="./">&larr; Back to home</a>
-      <h2>Fun Robotics Projects</h2>
+      <h1 class="section-title">Fun Robotics Projects</h1>
       <p>A broader portfolio of hands-on robotics work beyond my papers: manipulators, mobile robots and
         driving simulators, from perception and learning down to the ROS plumbing that makes hardware move.</p>
     </div>
 
     <ul class="rows">
       <li class="row">
-        <div class="row-thumb">
-          <video autoplay muted loop playsinline preload="metadata" width="442" height="252" poster="assets/img/posters/auto3d-pointcloud.jpg" aria-hidden="true">
+        <div class="thumb">
+          <img src="assets/img/posters/auto3d-pointcloud.jpg" width="442" height="252" loading="lazy" alt="Reconstructed point cloud of a scanned object">
+          <video muted loop playsinline preload="none" width="442" height="252" aria-hidden="true">
             <source src="assets/video/auto3d-pointcloud.mp4" type="video/mp4">
           </video>
         </div>
         <div class="row-body">
           <a href="projects/auto3d.html"><span class="papertitle">Automated 3D Modeling</span></a>
-          <span class="venue">Sawyer arm, TurtleBot3, Intel RealSense, ROS, MoveIt!, PCL</span>
-          <span class="links"><a href="projects/auto3d.html">project page</a> / <a href="https://github.com/fengb2-coder/Automated-3D-Modeling">code</a></span>
+          <span class="venue"><em>Sawyer arm, TurtleBot3, Intel RealSense, ROS, MoveIt!, PCL</em></span>
+          <span class="links"><a href="projects/auto3d.html">project page</a> <a href="https://github.com/fengb2-coder/Automated-3D-Modeling">code</a></span>
           <p>A Sawyer arm with a RealSense camera and a TurtleBot3 turntable cooperate to scan arbitrary objects and reconstruct 3D models, no CAD experience needed.</p>
         </div>
       </li>
 
       <li class="row">
-        <div class="row-thumb">
-          <video autoplay muted loop playsinline preload="metadata" width="442" height="252" poster="assets/img/posters/carla-dqn-100ep.jpg" aria-hidden="true">
+        <div class="thumb">
+          <img src="assets/img/posters/carla-dqn-100ep.jpg" width="442" height="252" loading="lazy" alt="Car driving in the CARLA urban simulator">
+          <video muted loop playsinline preload="none" width="442" height="252" aria-hidden="true">
             <source src="assets/video/carla-dqn-100ep.mp4" type="video/mp4">
           </video>
         </div>
         <div class="row-body">
           <a href="projects/autonomous-driving.html"><span class="papertitle">Autonomous Driving with Deep Q-Learning in CARLA Urban Simulator</span></a>
-          <span class="venue">CARLA 0.9.6, TensorFlow, Keras</span>
-          <span class="links"><a href="projects/autonomous-driving.html">project page</a> / <a href="https://github.com/fengb2-coder/dqn_carla">code</a></span>
+          <span class="venue"><em>CARLA 0.9.6, TensorFlow, Keras</em></span>
+          <span class="links"><a href="projects/autonomous-driving.html">project page</a> <a href="https://github.com/fengb2-coder/dqn_carla">code</a></span>
           <p>A deep Q-learning agent learns to drive collision-free in the CARLA urban simulator, guided by generated waypoints rather than traffic or lane-following rules.</p>
         </div>
       </li>
 
       <li class="row">
-        <div class="row-thumb">
-          <video autoplay muted loop playsinline preload="metadata" width="480" height="408" poster="assets/img/posters/ncp-jackal.jpg" aria-hidden="true">
+        <div class="thumb">
+          <img src="assets/img/posters/ncp-jackal.jpg" width="480" height="408" loading="lazy" alt="Clearpath Jackal robot avoiding an obstacle">
+          <video muted loop playsinline preload="none" width="480" height="408" aria-hidden="true">
             <source src="assets/video/ncp-jackal.mp4" type="video/mp4">
           </video>
         </div>
         <div class="row-body">
           <a href="projects/navigation-ncp.html"><span class="papertitle">Object Avoidance and Line Following with Jackal Robot using CNN and Neural Circuit Policy</span></a>
-          <span class="venue">Clearpath Jackal, RealSense D435i, Velodyne lidar, TensorFlow, ROS</span>
-          <span class="links"><a href="projects/navigation-ncp.html">project page</a> / <a href="https://github.com/fengb2-coder/ncp">code</a></span>
+          <span class="venue"><em>Clearpath Jackal, RealSense D435i, Velodyne lidar, TensorFlow, ROS</em></span>
+          <span class="links"><a href="projects/navigation-ncp.html">project page</a> <a href="https://github.com/fengb2-coder/ncp">code</a></span>
           <p>CNN + Neural Circuit Policy navigation on a real Jackal robot, showing that fewer control neurons and less data still give satisfactory performance.</p>
         </div>
       </li>
 
       <li class="row">
-        <div class="row-thumb">
-          <video autoplay muted loop playsinline preload="metadata" width="360" height="202" poster="assets/img/posters/soft-tool-pushball.jpg" aria-hidden="true">
+        <div class="thumb">
+          <img src="assets/img/posters/soft-tool-pushball.jpg" width="360" height="202" loading="lazy" alt="Robot arms holding a bent wire next to a red ball">
+          <video muted loop playsinline preload="none" width="360" height="202" aria-hidden="true">
             <source src="assets/video/soft-tool-pushball.mp4" type="video/mp4">
           </video>
         </div>
         <div class="row-body">
           <a href="projects/soft-tool.html"><span class="papertitle">Use Robot to Bend Flexible Wire to Specific Shape as Tools with Optimal Control and Active Learning</span></a>
-          <span class="venue">Widow200 robot arms, ROS, PyTorch, RLlib</span>
-          <span class="links"><a href="projects/soft-tool.html">project page</a> / <a href="https://github.com/anapervan/Flexible-Tool.git">code</a></span>
+          <span class="venue"><em>Widow200 robot arms, ROS, PyTorch, RLlib</em></span>
+          <span class="links"><a href="projects/soft-tool.html">project page</a> <a href="https://github.com/anapervan/Flexible-Tool.git">code</a></span>
           <p>Two robot arms bend a soft wire into target shapes via optimal control and learning, then use it as a tool to push and drag objects.</p>
         </div>
       </li>
@@ -105,11 +109,6 @@
     </div>
   </footer>
 
-  <script>
-    // Respect reduced-motion: stop the looping previews.
-    if (window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches) {
-      document.querySelectorAll('video[autoplay]').forEach(function (v) { v.removeAttribute('autoplay'); v.pause(); });
-    }
-  </script>
+  <script src="assets/js/thumbs.js" defer></script>
 </body>
 </html>
