@@ -1,0 +1,145 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Automated 3D Modeling | Bowen Feng</title>
+  <meta name="description" content="An automated 3D reconstruction system in which a Sawyer arm with a RealSense camera and a TurtleBot3 turntable scan arbitrary objects.">
+  <link rel="canonical" href="https://fengb2-coder.github.io/projects/auto3d.html">
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="Automated 3D Modeling">
+  <meta property="og:description" content="Sawyer + TurtleBot3 + RealSense: automated point-cloud scanning and 3D reconstruction.">
+  <meta property="og:url" content="https://fengb2-coder.github.io/projects/auto3d.html">
+  <meta property="og:image" content="https://fengb2-coder.github.io/assets/img/posters/auto3d-pointcloud.jpg">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%231772d0'/%3E%3Ctext x='32' y='43' font-family='Arial,Helvetica,sans-serif' font-size='30' font-weight='700' text-anchor='middle' fill='%23fff'%3EBF%3C/text%3E%3C/svg%3E">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,400;0,700;1,400&display=swap">
+  <link rel="stylesheet" href="../assets/css/style.css">
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <nav class="site-nav" aria-label="Main">
+    <div class="container">
+      <a class="brand" href="../">Bowen Feng</a>
+      <ul>
+        <li><a href="../#publications">Publications</a></li>
+        <li><a href="../fun-projects.html">Robotics Projects</a></li>
+        <li><a href="../assets/Bowen_Feng_CV.pdf">CV</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <main id="main" class="container">
+    <a class="back-link" href="../">&larr; Back to home</a>
+    <article>
+      <header class="page-header">
+        <h1>Automated 3D Modeling</h1>
+        <p class="meta"><strong>Key tools:</strong> ROS, MoveIt!, Slam_toolbox, Point Cloud Library</p>
+        <div class="btns">
+          <a class="btn" href="https://github.com/fengb2-coder/Automated-3D-Modeling">GitHub</a>
+        </div>
+      </header>
+
+      <h2>Project goal</h2>
+      <p>The goal of our project is to create a 3D reconstruction model of an arbitrarily object. We aimed to
+        design an automated 3D reconstruction system to make people without any CAD modeling experience
+        can construct 3D detailed model from objects.</p>
+      <p>Because of Covid, we have limited time spent in lab. We have our refined version of point clouds
+        finished at home. Thanks for Tianyu Li, my teammate, did this.</p>
+
+      <h2>My major work</h2>
+      <ul>
+        <li>responsible for sawyer and turtlebot motion part</li>
+        <li>come up ideas for scanning method and possible waypoints of scanning positions</li>
+        <li>create arm_motion package and use MoveIt to generate an efficient trajectory for sawyer movement</li>
+        <li>make turtlebot3 and sawyer can cooperate with each other and be an automate moving system</li>
+        <li>store the point cloud data using realsense camera</li>
+      </ul>
+
+      <h2>Demo in the lab</h2>
+      <figure>
+        <div class="embed">
+          <iframe src="https://drive.google.com/file/d/1Q2FO-1xUgAzdScVqBqCJTylDbjCMh5rL/preview" title="Demo in the lab" loading="lazy" allowfullscreen></iframe>
+        </div>
+      </figure>
+
+      <h2>Refined demo at home (done by Tianyu Li)</h2>
+      <figure>
+        <div class="embed">
+          <iframe src="https://drive.google.com/file/d/1Ju85MJpGs4Qd3p4OVBtpFYB5iKh3aYQW/preview" title="Refined demo at home" loading="lazy" allowfullscreen></iframe>
+        </div>
+      </figure>
+
+      <h3>Robots used to complete the goal</h3>
+      <ul>
+        <li>Rethink Sawyer Arm</li>
+        <li>Intel Realsense camera</li>
+        <li>Turtlebot3 (burger)</li>
+      </ul>
+
+      <h3>General process</h3>
+      <p>We mounted realsense camera at the end effector of the sawyer. This realsense camera is used to record
+        the point cloud data for five sides of the object(front, left, right, back and up). The sawyer arm is to
+        control the position of the camera, so that it can directly face the target surface. The turtlebot3 works as
+        a turntable to make object spin. Generally, the sawyer arm needs to move to a certain position (stored
+        waypoint), then turtlebot3 turn 90 degrees each time and camera store point cloud data each time. After
+        finishing storing the four sides, sawyer will go to the second stored waypoints to capture the top view
+        of the object.</p>
+
+      <h3>Skills needed</h3>
+      <ul>
+        <li>Robot Operating System</li>
+        <li>Sawyer and turtlebot3(burger) user connection</li>
+        <li>Slam_toolbox</li>
+        <li>Move_base</li>
+        <li>Moveit</li>
+        <li>Opencv</li>
+        <li>Point Cloud Library (PCL)</li>
+      </ul>
+
+      <h2>We divide the project into three sections, corresponding with three ROS packages</h2>
+      <h4>arm_motion</h4>
+      <ul>
+        <li>This package responsible for the control of motion between sawyer robot and turtlebot3</li>
+        <li>MoveIt is used to manipulate the motion of sawyer arm</li>
+        <li>Slam_toolbox and move_base are used to turn turtlebot3</li>
+      </ul>
+      <h4>camera_motion</h4>
+      <ul>
+        <li>Aligning the camera</li>
+        <li>Processing the raw depth pixels by OpenCV</li>
+      </ul>
+      <div class="fig-grid">
+        <figure>
+          <img src="../assets/img/projects/auto3d/portfolio2.png" loading="lazy" alt="camera_motion package figure 1">
+        </figure>
+        <figure>
+          <img src="../assets/img/projects/auto3d/portfolio3.png" loading="lazy" alt="camera_motion package figure 2">
+        </figure>
+      </div>
+      <h4>camera_reconstruct</h4>
+      <ul>
+        <li>Point Cloud Library is used to process points cloud data stored in realsense camera</li>
+        <li>Use C++ to post-process the data including transformation, alignment and cropping</li>
+      </ul>
+
+      <h2>Result</h2>
+      <figure>
+        <video autoplay muted loop playsinline preload="metadata" width="442" height="252"
+               poster="../assets/img/posters/auto3d-pointcloud.jpg" aria-label="Reconstructed point cloud of the scanned object">
+          <source src="../assets/video/auto3d-pointcloud.mp4" type="video/mp4">
+        </video>
+        <figcaption>Reconstructed point cloud of the scanned object.</figcaption>
+      </figure>
+    </article>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <p>Website template adapted from <a href="https://github.com/jonbarron/jonbarron_website">Jon Barron</a>.</p>
+      <p>Last updated Oct 2026.</p>
+    </div>
+  </footer>
+</body>
+</html>

@@ -1,0 +1,157 @@
+/* ==========================================================================
+   Bowen Feng — personal site
+   Layout and look adapted from Jon Barron's academic homepage template
+   (https://github.com/jonbarron/jonbarron_website), rewritten without tables.
+   One stylesheet for every page. No framework, no build step.
+   ========================================================================== */
+
+:root {
+  --bg: #ffffff;
+  --text: #000000;
+  --text-muted: #555555;
+  --border: #e6e6e6;
+  --link: #1772d0;
+  --link-hover: #f09228;
+  --highlight: #ffffd0;
+  --font: "Lato", Verdana, Helvetica, sans-serif;
+  --maxw: 800px;
+  color-scheme: light;
+}
+
+/* Subtle dark mode; the light look is the reference design. */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #15171a;
+    --text: #e8e8e8;
+    --text-muted: #a8acb2;
+    --border: #2c3036;
+    --link: #5aa9f0;
+    --link-hover: #f5a54a;
+    --highlight: #2a2a1c;
+    color-scheme: dark;
+  }
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font);
+  font-size: 15px;
+  line-height: 1.55;
+  overflow-wrap: break-word;
+}
+
+img, video, iframe { max-width: 100%; }
+img, video { height: auto; display: block; }
+
+a { color: var(--link); text-decoration: none; }
+a:hover, a:focus { color: var(--link-hover); }
+a:focus-visible { outline: 2px solid var(--link-hover); outline-offset: 2px; }
+
+h1, h2, h3, h4 { font-weight: 400; line-height: 1.3; }
+h2 { font-size: 22px; margin: 2.2rem 0 0.6rem; }
+h3 { font-size: 18px; margin: 1.6rem 0 0.5rem; }
+h4 { font-size: 16px; margin: 1.2rem 0 0.4rem; font-weight: 700; }
+p { margin: 0 0 1em; }
+ul { padding-left: 1.3em; margin: 0 0 1em; }
+li { margin: 0.15em 0; }
+strong { font-weight: 700; }
+
+.skip-link { position: absolute; left: -999px; top: 0; background: var(--bg); padding: 0.4em 0.8em; z-index: 10; }
+.skip-link:focus { left: 1em; }
+
+.container { max-width: var(--maxw); margin: 0 auto; padding: 0 16px; }
+
+/* ---------- small top nav (secondary pages only) ---------- */
+.site-nav { padding: 18px 0 0; }
+.site-nav .container { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 4px 16px; }
+.site-nav .brand { font-weight: 700; color: var(--text); }
+.site-nav ul { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; }
+.site-nav li { margin: 0; }
+.site-nav li + li::before { content: "/"; color: var(--text-muted); margin: 0 0.5em; }
+.site-nav a[aria-current="page"] { color: var(--text); }
+
+/* ---------- intro (name / bio / links | photo) ---------- */
+.intro {
+  display: grid;
+  grid-template-columns: 63% 37%;
+  align-items: center;
+  padding: 2.5% 0 0;
+}
+.intro-text { padding: 2.5%; }
+.name { text-align: center; font-size: 32px; font-weight: 400; margin: 0 0 1rem; }
+.intro-links { text-align: center; margin: 0.4rem 0 0; }
+.intro-photo { padding: 2.5%; }
+.intro-photo img { width: 100%; max-width: 100%; border-radius: 50%; aspect-ratio: 1 / 1; object-fit: cover; object-position: center; }
+
+/* " / "-separated inline link lists */
+.slash-list { list-style: none; margin: 0; padding: 0; display: inline-flex; flex-wrap: wrap; justify-content: center; }
+.slash-list li { display: inline; margin: 0; }
+.slash-list li + li::before { content: "\00a0/\00a0"; color: var(--text); }
+
+/* ---------- headed sections ---------- */
+.section { padding: 0 2.5%; }
+.section h2 { margin-top: 1.6rem; }
+.news { list-style: none; padding: 0; margin: 0; }
+.news li { margin: 0.25rem 0; display: grid; grid-template-columns: 5.5em 1fr; gap: 0.5em; }
+.news .date { color: var(--text-muted); font-variant-numeric: tabular-nums; }
+
+/* ---------- publication / project rows ---------- */
+.rows { list-style: none; margin: 0; padding: 0; }
+.row {
+  display: grid;
+  grid-template-columns: 25% 75%;
+  align-items: center;
+  margin: 0;
+  padding: 16px 0;
+}
+.row.highlight { background: var(--highlight); }
+.row-thumb { padding: 0 20px 0 2.5%; }
+.row-thumb img, .row-thumb video {
+  width: 100%;
+  border-radius: 4px;
+  background: #fff; /* figures are drawn for a white background */
+}
+.row-body { padding: 0 2.5% 0 20px; }
+.papertitle { font-weight: 700; font-size: 15px; }
+.row-body .authors, .row-body .venue, .row-body .links { display: block; }
+.venue { font-style: italic; }
+.links { margin-top: 2px; }
+.row-body p { margin: 0.5em 0 0; }
+.note { font-size: 13px; color: var(--text-muted); }
+
+.more { padding: 6px 2.5% 0; }
+
+/* ---------- project detail pages ---------- */
+.back-link { display: inline-block; margin: 1.4rem 0 0.2rem; }
+.page-header h1 { font-size: 28px; margin: 0.6rem 0 0.4rem; }
+.meta { color: var(--text-muted); margin: 0 0 0.4rem; }
+.meta strong { color: var(--text); }
+.btns { margin: 0 0 1rem; display: flex; flex-wrap: wrap; }
+.btns a + a::before { content: "\00a0/\00a0"; color: var(--text); }
+article h2 { border-bottom: 1px solid var(--border); padding-bottom: 4px; }
+
+figure { margin: 1.4rem 0; text-align: center; }
+figure img, figure video { margin: 0 auto; background: #fff; }
+figcaption { font-size: 13px; color: var(--text-muted); margin-top: 6px; }
+.fig-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 16px; align-items: start; margin: 1rem 0; }
+.fig-grid figure { margin: 0; }
+.embed { position: relative; width: 100%; max-width: 640px; margin: 0 auto; aspect-ratio: 4 / 3; background: #000; }
+.embed iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
+
+/* ---------- footer ---------- */
+.site-footer { padding: 24px 0 28px; }
+.site-footer p { text-align: right; font-size: 13px; color: var(--text-muted); margin: 0.15rem 2.5%; }
+
+/* ---------- responsive ---------- */
+@media (max-width: 640px) {
+  .intro { grid-template-columns: 1fr; }
+  .intro-photo { order: -1; max-width: 200px; margin: 0 auto; }
+  .row { grid-template-columns: 1fr; gap: 10px; }
+  .row-thumb { padding: 0 2.5%; max-width: 360px; }
+  .row-body { padding: 0 2.5%; }
+}

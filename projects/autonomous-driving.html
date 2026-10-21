@@ -1,0 +1,159 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Autonomous Driving with Deep Q-Learning in CARLA | Bowen Feng</title>
+  <meta name="description" content="A deep Q-learning model that teaches a vehicle in the CARLA urban simulator to drive without collisions, guided by generated waypoints.">
+  <link rel="canonical" href="https://fengb2-coder.github.io/projects/autonomous-driving.html">
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="Autonomous Driving with Deep Q-Learning in CARLA">
+  <meta property="og:description" content="Deep Q-learning for collision-free driving in the CARLA urban simulator.">
+  <meta property="og:url" content="https://fengb2-coder.github.io/projects/autonomous-driving.html">
+  <meta property="og:image" content="https://fengb2-coder.github.io/assets/img/posters/carla-dqn-100ep.jpg">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%231772d0'/%3E%3Ctext x='32' y='43' font-family='Arial,Helvetica,sans-serif' font-size='30' font-weight='700' text-anchor='middle' fill='%23fff'%3EBF%3C/text%3E%3C/svg%3E">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,400;0,700;1,400&display=swap">
+  <link rel="stylesheet" href="../assets/css/style.css">
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <nav class="site-nav" aria-label="Main">
+    <div class="container">
+      <a class="brand" href="../">Bowen Feng</a>
+      <ul>
+        <li><a href="../#publications">Publications</a></li>
+        <li><a href="../fun-projects.html">Robotics Projects</a></li>
+        <li><a href="../assets/Bowen_Feng_CV.pdf">CV</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <main id="main" class="container">
+    <a class="back-link" href="../">&larr; Back to home</a>
+    <article>
+      <header class="page-header">
+        <h1>Autonomous Driving with Deep Q-Learning in CARLA Urban Simulator</h1>
+        <p class="meta"><strong>Key tools:</strong> Carla simulator 0.9.6, Tensorflow, Python, Keras</p>
+        <div class="btns">
+          <a class="btn" href="https://github.com/fengb2-coder/dqn_carla">GitHub</a>
+        </div>
+      </header>
+
+      <h2>Project goal</h2>
+      <p>The goal of this independent research is to create a deep Q learning model for a vehicle in Carla Urban Simulator.
+        The target pipeline is to make spawned vehicle learn the environment and drive itself without collide under no traffic or line following rules.
+        To save the randomness time, guided waypoints are generated near the spawned location and add them to reward function.</p>
+
+      <h2>My major work</h2>
+      <ul>
+        <li>learn and construct agent (spawn the vehicle, camera, collision sensor) in Carla</li>
+        <li>construct reward policies and overall reinforcement learning algorithms</li>
+        <li>construct CNN deep neural network for this complex environment</li>
+        <li>come up with waypoints ideas to save random action time</li>
+        <li>construct the waypoints near the vehicle spawned location</li>
+      </ul>
+
+      <h2>Demo</h2>
+      <p>The video showed below is the agent performance in simulator using policy trained after certain episodes.
+        If there is a collision, the episode will terminate. If there is no collision at all, episode will terminate after set episode period. The green dots in the video are waypoints generated to guide the vehicle to save random action time.
+        Since I have no traffic and line following policies, I generated the waypoints on both sides of road.</p>
+
+      <h3>Policy trained with 100 episodes (the best one so far)</h3>
+      <figure>
+        <div class="embed">
+          <iframe src="https://drive.google.com/file/d/1Jpi3hbYf_IBco38GES1MWgzOoDrIOz4Z/preview" title="Policy trained with 100 episodes" loading="lazy" allowfullscreen></iframe>
+        </div>
+      </figure>
+
+      <h3>Policy trained with 50 episodes</h3>
+      <figure>
+        <div class="embed">
+          <iframe src="https://drive.google.com/file/d/1xwlfrpb8L6pTiOZYmi0ath2COcivO_ow/preview" title="Policy trained with 50 episodes" loading="lazy" allowfullscreen></iframe>
+        </div>
+      </figure>
+
+      <h3>Policy trained with 20 episodes</h3>
+      <figure>
+        <div class="embed">
+          <iframe src="https://drive.google.com/file/d/1MTWG8dzR07LIjbdwlpKNxc68mv7wO0xc/preview" title="Policy trained with 20 episodes" loading="lazy" allowfullscreen></iframe>
+        </div>
+      </figure>
+
+      <h3>Plots generated from Tensorboard from 100 episodes (corresponds to the best performance)</h3>
+      <p>Epsilon as first plot's y axis is randomness. All four plots' x axis are epidoes.</p>
+      <div class="fig-grid">
+        <figure>
+          <img src="../assets/img/projects/autonomous-driving/plot1.png" loading="lazy" alt="Tensorboard plots from 100 training episodes, including epsilon (randomness) over episodes">
+        </figure>
+        <figure>
+          <img src="../assets/img/projects/autonomous-driving/plot2.png" loading="lazy" alt="Tensorboard plots from 100 training episodes">
+        </figure>
+      </div>
+
+      <h2>Deep Q-learning algorithm</h2>
+      <h4>Three actions</h4>
+      <ul>
+        <li>Action1: full throttle left turns</li>
+        <li>Action2: full throttle go straight</li>
+        <li>Action3: full throttle turn right</li>
+      </ul>
+      <h4>Rewards</h4>
+      <ul>
+        <li>Reward policy1: give huge penalty to collision (around -200 to 500)</li>
+        <li>Reward policy2: give reward for driving to the watpoints location (around 50 to 100)</li>
+        <li>Reward policy3: give reward for non-collision case (around 20)</li>
+        <li>Reward policy4: give penalty for the speed below 40 mph (around -5)</li>
+      </ul>
+
+      <h3>Data</h3>
+      <h4>Collision sensor</h4>
+      <p>I add the collision sensor and camera at the front of the car.
+        The collision sensor will detect the collision and send the message.
+        I have a list called collision_list and is initialized to be an empty list.
+        During the process, I will decide if there is a collision based on the collision list is empty or not.</p>
+      <h4>Camera</h4>
+      <ul>
+        <li>Camera spawned in front of the car will provide RGB data input into the DQN network.</li>
+      </ul>
+
+      <figure>
+        <img src="../assets/img/projects/autonomous-driving/DQN_flowchart.png" loading="lazy" alt="CNN flowchart of the DQN network">
+        <figcaption>CNN flowchart</figcaption>
+      </figure>
+      <figure>
+        <img src="../assets/img/projects/autonomous-driving/RL_flowchart.png" loading="lazy" alt="Reinforcement learning flowchart">
+        <figcaption>Reinforcement learning flowchart</figcaption>
+      </figure>
+      <figure>
+        <img src="../assets/img/projects/autonomous-driving/Xception_base_model.png" loading="lazy" alt="Xception base model architecture used in the CNN">
+        <figcaption>Xception base model used in CNN</figcaption>
+      </figure>
+
+      <h2>Result</h2>
+      <figure>
+        <video autoplay muted loop playsinline preload="metadata" width="442" height="252"
+               poster="../assets/img/posters/carla-dqn-100ep.jpg" aria-label="Agent driving in CARLA with the policy trained for 100 episodes">
+          <source src="../assets/video/carla-dqn-100ep.mp4" type="video/mp4">
+        </video>
+        <figcaption>Agent driving with the policy trained for 100 episodes.</figcaption>
+      </figure>
+
+      <h2>Future work</h2>
+      <ul>
+        <li>Add pedestrians and driving vehicles (NPC) to the map</li>
+        <li>Choose a field with one straight road, a crossing and add line following rules</li>
+        <li>Reward parameter need to be tuned better (such as if collide, reward = tuned reward parameter)</li>
+      </ul>
+    </article>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <p>Website template adapted from <a href="https://github.com/jonbarron/jonbarron_website">Jon Barron</a>.</p>
+      <p>Last updated Oct 2026.</p>
+    </div>
+  </footer>
+</body>
+</html>

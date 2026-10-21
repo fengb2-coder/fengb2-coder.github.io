@@ -1,0 +1,179 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Obstacle Avoidance and Line Following with a Jackal Robot | Bowen Feng</title>
+  <meta name="description" content="Obstacle avoidance and line following on a Clearpath Jackal robot using CNN modules and Neural Circuit Policies.">
+  <link rel="canonical" href="https://fengb2-coder.github.io/projects/navigation-ncp.html">
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="Object Avoidance and Line Following with Jackal Robot using CNN and Neural Circuit Policy">
+  <meta property="og:description" content="CNN + Neural Circuit Policy navigation on a Clearpath Jackal.">
+  <meta property="og:url" content="https://fengb2-coder.github.io/projects/navigation-ncp.html">
+  <meta property="og:image" content="https://fengb2-coder.github.io/assets/img/posters/ncp-jackal.jpg">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%231772d0'/%3E%3Ctext x='32' y='43' font-family='Arial,Helvetica,sans-serif' font-size='30' font-weight='700' text-anchor='middle' fill='%23fff'%3EBF%3C/text%3E%3C/svg%3E">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,400;0,700;1,400&display=swap">
+  <link rel="stylesheet" href="../assets/css/style.css">
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <nav class="site-nav" aria-label="Main">
+    <div class="container">
+      <a class="brand" href="../">Bowen Feng</a>
+      <ul>
+        <li><a href="../#publications">Publications</a></li>
+        <li><a href="../fun-projects.html">Robotics Projects</a></li>
+        <li><a href="../assets/Bowen_Feng_CV.pdf">CV</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <main id="main" class="container">
+    <a class="back-link" href="../">&larr; Back to home</a>
+    <article>
+      <header class="page-header">
+        <h1>Object Avoidance and Line Following with Jackal Robot using CNN and Neural Circuit Policy</h1>
+        <p class="meta"><strong>Key tools:</strong> Clearpath Jackal, Intel RealSense Depth Camera D435i, Velodyne 3D Lidar, Tensorflow, OpenCV, cv_bridge, ROS</p>
+        <div class="btns">
+          <a class="btn" href="https://github.com/fengb2-coder/ncp">GitHub</a>
+          <a class="btn" href="https://drive.google.com/drive/folders/1ExmcJzur6QPZFylPTDK9MpZhT4G8jHyG?usp=sharing">Google Drive (report &amp; data)</a>
+        </div>
+      </header>
+
+      <figure>
+        <video autoplay muted loop playsinline preload="metadata" width="480" height="408"
+               poster="../assets/img/posters/ncp-jackal.jpg" aria-label="Jackal robot driving autonomously past an obstacle">
+          <source src="../assets/video/ncp-jackal.mp4" type="video/mp4">
+        </video>
+        <figcaption>The Jackal robot navigating with the learned policy.</figcaption>
+      </figure>
+
+      <h2>Abstract</h2>
+      <p>Deep supervised modes work well when we have
+        sufficient data to train, but one of the hardest things is to
+        do it efficiently and hard to understand what each stage does
+        in the learning. We always have deep neural network, high
+        computation cost, and requirement of large amount of data when
+        the environment is complicated. Neuron Circuit policy gives us a
+        more intelligent way to use less data and fewer layers during the
+        learning while finishing the task with more robustness. We design
+        the experiment to ask Jackal robot doing autonomous navigation
+        tasks to demonstrate using neuron circuit policy with fewer
+        control neurons can still result in a satisfactory performance.</p>
+
+      <h2>Project goal</h2>
+      <p>We separate our tasks into two phases. Phase 1 aims for
+        obstacle avoidance, and phase 2 aims for line following task.
+        Both phases share the same model design that output a velocity
+        to control the robot. We design our learning algorithm by
+        using convolutional neural network(CNN) modules and neural
+        circuit policy (NCP). Our system is separated into two parts:
+        data processing and control. For more details, project report in IEEE format and trained data sets can be found in the shared google drive.</p>
+
+      <figure>
+        <img src="../assets/img/projects/navigation-ncp/ncp_model.png" loading="lazy" alt="Model design: CNN feature extractor followed by a Neural Circuit Policy that outputs velocity commands">
+        <figcaption>Model design</figcaption>
+      </figure>
+
+      <h2>My major work</h2>
+      <ul>
+        <li>Implement CNN and Neural Circuit Policy using tensorflow</li>
+        <li>Take data for obstacle avoidance and line following task using ROS_Slam_tool_box and teleop separately</li>
+        <li>Use trained model on Jackal robot with ROS and test it in reality</li>
+      </ul>
+
+      <h2>Demo</h2>
+      <p>The videos below are Jackal robot's performance on Object avoidance and line following tasks in real environment.</p>
+
+      <h3>Obstacle avoidance with no destination specified</h3>
+      <figure>
+        <div class="embed">
+          <iframe src="https://drive.google.com/file/d/14eI-KddXkKIu8Pkand7IL7Fn7dewVTxX/preview" title="Obstacle avoidance with no destination specified" loading="lazy" allowfullscreen></iframe>
+        </div>
+      </figure>
+
+      <h3>Line following with specified solid and dotted lines on the ground</h3>
+      <figure>
+        <div class="embed">
+          <iframe src="https://drive.google.com/file/d/1Vx_q-xAiokX-0_mQdEss-U-rvd7WsZWe/preview" title="Line following with solid and dotted lines" loading="lazy" allowfullscreen></iframe>
+        </div>
+      </figure>
+
+      <h2>Training and testing results</h2>
+      <h3>Obstacle avoidance</h3>
+      <p>For obstacle avoidance task, we trained linear
+        and angular velocities separately paired with the same scan
+        message data. One training model will give us predicated
+        angular velocity using scan message and collected angular
+        velocity as training inputs. Another training model will give
+        us predicated linear velocity using scan message and collected
+        linear velocity as training inputs. After having those two
+        trained models, we constructed ROS node (load model) to
+        publish predicated linear and angular velocity into cmd vel
+        topic, which controls the forward speed and steering speed of
+        Jackal. Plots below show the linear and angular velocity model result trained using laser
+        scan messages. Both models are trained using /front/scan and
+        /cmd vel messages recorded in rosbags.</p>
+
+      <h4>Training results</h4>
+      <div class="fig-grid">
+        <figure>
+          <img src="../assets/img/projects/navigation-ncp/Part1_training_result_linear.png" loading="lazy" alt="Training result for the linear velocity model">
+          <figcaption>Linear velocity</figcaption>
+        </figure>
+        <figure>
+          <img src="../assets/img/projects/navigation-ncp/Part1_training_result_angular.png" loading="lazy" alt="Training result for the angular velocity model">
+          <figcaption>Angular velocity</figcaption>
+        </figure>
+      </div>
+      <h4>Testing results</h4>
+      <div class="fig-grid">
+        <figure>
+          <img src="../assets/img/projects/navigation-ncp/Part1_testing_result_linear.png" loading="lazy" alt="Testing result for the linear velocity model">
+          <figcaption>Linear velocity</figcaption>
+        </figure>
+        <figure>
+          <img src="../assets/img/projects/navigation-ncp/Part1_testing_result_angular.png" loading="lazy" alt="Testing result for the angular velocity model">
+          <figcaption>Angular velocity</figcaption>
+        </figure>
+      </div>
+
+      <h3>Line following</h3>
+      <p>For Line following task, we use blue duct tape to construct an L-shaped road. Our
+        goal is to demonstrate our trained model can follow the line
+        from the start to the end of the road. We first manually
+        run Jackal through the road using keyboard control. After
+        collecting five rounds of data, we input collected RGB data and
+        angular velocity into our training model and output predicated
+        angular velocity. We did not collect linear velocity since we stabilize our linear velocity when manually running the Jackal.
+        When we test our model, we use the same linear velocity. We
+        constructed ROS nodes to publish predicated angular velocity
+        on cmd vel topic. Pictures below show the training result of the line following model.</p>
+      <figure>
+        <img src="../assets/img/projects/navigation-ncp/Part2_images.png" loading="lazy" alt="Example camera input images of the blue-tape line-following track">
+        <figcaption>Input image example</figcaption>
+      </figure>
+      <figure>
+        <img src="../assets/img/projects/navigation-ncp/Part2_losses.png" loading="lazy" alt="Training loss curves of the line-following model">
+        <figcaption>Training results</figcaption>
+      </figure>
+
+      <h2>Future work</h2>
+      <ul>
+        <li>Combine the line following and object avoidance into one task</li>
+        <li>Add more moving obstacle in the training and testing environment to test the robostness of the avoidance</li>
+        <li>Add a destination and path planning into the model</li>
+      </ul>
+    </article>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <p>Website template adapted from <a href="https://github.com/jonbarron/jonbarron_website">Jon Barron</a>.</p>
+      <p>Last updated Oct 2026.</p>
+    </div>
+  </footer>
+</body>
+</html>
