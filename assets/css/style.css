@@ -165,6 +165,7 @@ sup { line-height: 0; }
 .links a + a::before, .links a + details::before, .links details + a::before { content: "\00a0/\00a0"; color: var(--text-muted); }
 .row-body p { margin: 8px 0 0; }
 .note { font-size: 13px; color: var(--text-muted); }
+.section-sub { margin: -6px 0 14px; }
 
 /* optional bibtex disclosure (no JS) */
 .links details { display: inline; }
