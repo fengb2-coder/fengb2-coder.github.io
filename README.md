@@ -20,7 +20,7 @@ assets/img/posters/        first-frame poster images for the videos
 assets/img/projects/<p>/   figures for each project page
 assets/video/              demo clips and short hover loops (*-hover.mp4), H.264 MP4
 assets/js/thumbs.js        hover-to-play for .thumb boxes (the only script; still image stays on touch screens)
-assets/Bowen_Feng_CV.pdf   CV linked from the header
+(CV link removed for now; add assets/Bowen_Feng_CV.pdf and restore the header/nav links when ready)
 Auto3d.html, AutonomousDriving.html, Navigation_ncp.html, Soft_tool.html
                            redirect stubs for the old URLs; leave them in place
 ```
