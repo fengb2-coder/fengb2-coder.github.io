@@ -141,6 +141,9 @@ sup { line-height: 0; }
   width: 100%; height: 100%;
   object-fit: cover;
 }
+/* Wide teasers (e.g. EpicWM) show the whole frame, letterboxed on the teaser's own background. */
+.thumb.contain { background: #e6e6e3; }
+.thumb.contain img, .thumb.contain video { object-fit: contain; }
 .thumb img { z-index: 1; transition: opacity 0.2s ease; }
 .thumb.playing img { opacity: 0; }
 
