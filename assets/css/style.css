@@ -210,6 +210,8 @@ figcaption { font-size: 13px; color: var(--text-muted); margin-top: 8px; }
   .intro { grid-template-columns: 1fr; gap: 16px; padding-top: 28px; }
   .intro-photo { order: -1; justify-self: center; }
   .intro-photo img { width: 170px; }
+  .slash-list { column-gap: 18px; }
+  .slash-list li + li::before { content: none; }
   .row { grid-template-columns: 1fr; gap: 12px; margin: 0 -8px; padding: 14px 8px; }
   .thumb { width: 100%; aspect-ratio: 16 / 9; }
   .page-header h1 { font-size: 24px; }
